@@ -8,9 +8,24 @@ import MyIcon from '../../Modules/Images/MyIcon.png';
 import Works from '../../Modules/Json/works.json';
 
 function Top () {
-    const [works, setWorks] = useState(0);
+    const [workItems, setWorkItems] = useState([]);
     useEffect(function () {
-        console.log(Works);
+        // console.log(Works);
+        const workItemList = [];
+        for (let i = 0; i < Works.length; i++) {
+            workItemList.push(
+                <>
+                    <div className={TopCss.workItem}>
+                        <div className={TopCss.workItemHover}>
+                            <p className={TopCss.workTitle}>{Works[i].title}</p>
+                            <p className={TopCss.workDiscription}>{Works[i].discription}</p>
+                        </div>
+                        <img src={Works[i].image} alt={Works[i].id} />
+                    </div>
+                </>
+            );
+        }
+        setWorkItems(workItemList);
     }, []);
     return (
         <>
@@ -26,8 +41,12 @@ function Top () {
                             <h3>Profile</h3>
                             <div className={TopCss.contentStatus}>
                                 <p>名前: 山本 一樹</p>
-                                <p>年齢: 22</p>
-                                <p>趣味: ドライブ</p>
+                                <p>生年月日: 2000/07/15 (22歳)</p>
+                                <p>趣味: ドライブ、温泉、お酒</p>
+                                <p>やりたいこと:</p>
+                                <p className={TopCss.list}>- フロントエンド開発</p>
+                                <p className={TopCss.list}>- バックエンド開発</p>
+                                <p className={TopCss.list}>- IoT開発</p>
                             </div>
                         </div>
                         <div className={TopCss.history}>
@@ -58,11 +77,7 @@ function Top () {
             <section id={TopCss.myWorks} className={TopCss.sectionWrap}>
                 <h2 className={TopCss.sectionTitle}>Works</h2>
                 <div className={TopCss.sectionContentWrap}>
-                    <div className={TopCss.workItem}></div>
-                    <div className={TopCss.workItem}></div>
-                    <div className={TopCss.workItem}></div>
-                    <div className={TopCss.workItem}></div>
-                    <div className={TopCss.workItem}></div>
+                    {workItems}
                 </div>
             </section>
         </>
